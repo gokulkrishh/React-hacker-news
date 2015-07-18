@@ -1,0 +1,96 @@
+/*
+TODO ::
+[] Integrate Bourbon to make use of most mixins - http://bourbon.io/docs/
+*/
+/*-------------------------------------------------
+ MIXIN :: CLEARFIX
+-------------------------------------------------*/
+@mixin clearfix() {
+    clear: both;
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+/*-------------------------------------------------
+ MIXIN :: PIXEL TO EM CONVERTOR
+-------------------------------------------------*/
+$browser-context: 16; // Default
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em
+}
+
+/*-------------------------------------------------
+ MIXIN :: BORDER RADIUS
+-------------------------------------------------*/
+@mixin borderRadius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+      border-radius: $radius;
+}
+@mixin borderRadiusCombination($top-left, $top-right, $bottom-right, $bottom-left) {
+  -webkit-border-radius: $top-left $top-right $bottom-right $bottom-left;
+  -moz-border-radius: $top-left $top-right $bottom-right $bottom-left;
+  -ms-border-radius: $top-left $top-right $bottom-right $bottom-left;
+      border-radius: $top-left $top-right $bottom-right $bottom-left;
+}
+
+/*-------------------------------------------------
+ MIXIN :: TRANSITION
+-------------------------------------------------*/
+@mixin transition($transition-property, $transition-time, $method) {
+    -webkit-transition: $transition-property $transition-time $method;
+    -moz-transition: $transition-property $transition-time $method;
+    -ms-transition: $transition-property $transition-time $method;
+    -o-transition: $transition-property $transition-time $method;
+    transition: $transition-property $transition-time $method;
+}
+
+/*-------------------------------------------------
+ MIXIN :: BOX SHADOW
+-------------------------------------------------*/
+@mixin boxShadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+/*-------------------------------------------------
+ MIXIN :: SCALE - TRANSFORM
+-------------------------------------------------*/
+@mixin scale($scale) {
+  transform: scale($scale);
+  -moz-transform: scale($scale);
+  -webkit-transform: scale($scale);
+}
+
+/*-------------------------------------------------
+ MIXIN :: ROTATE - TRANSFORM
+-------------------------------------------------*/
+@mixin rotate($rotate) {
+  transform: rotate($rotate);
+  -moz-transform: rotate($rotate);
+  -webkit-transform: rotate($rotate);
+}
+
+/*-------------------------------------------------
+ MIXIN :: FONT STYLE
+-------------------------------------------------*/
+//Font styling font-family, font-size and color of the font 
+@mixin fontStyle($fontFamily, $fontSize, $fontColor) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  color: $fontColor;
+}
