@@ -3,7 +3,7 @@
 
 var target = document.getElementById('main-container'); //Target element to render the components
 
-var items = [];
+var counter = 0;
 
 var Header = React.createClass({
   render: function() {
@@ -51,24 +51,32 @@ var MenuBar = React.createClass({
 
 var NewSection = React.createClass({
   getInitialState: function() {
+    var paginationCount = 10;
+
+    $(window).scroll(function() {
+      if ($('.content-container').length > 0) {
+        if($(window).scrollTop() == $(document).height() - $(window).height()) {
+          this.setState({isLoadedMore: false}); 
+          var previousCount = paginationCount + 1;
+          paginationCount = paginationCount + 11;
+          this.getNewStories(previousCount, paginationCount);
+        }
+      }
+    }.bind(this));
+
     return {
-      id: '',
-      title: '',
-      url: '',
-      time: '',
-      author: '',
-      domain: '',
-      type: '',
-      points: '',
-      isLoaded: false
+      isLoaded: false,
+      isLoadedMore: true,
+      stories: [],
+      dummy: []
     }
   },
   componentDidMount: function() {
     console.log(this);
 
-    this.getNewStories();
+    this.getNewStories(0, 10);
     if (this.state.isSelected === 'New') {
-      this.getNewStories();
+      this.getNewStories(10);
     }
     else if (this.state.isSelected === 'Show') {
       this.getNewStories();
@@ -77,17 +85,24 @@ var NewSection = React.createClass({
       this.getNewStories();
     }
   },
-  getNewStories: function () {
+  getNewStories: function (startIndex, paginationCount) {
     var ids = [];
     var nextItem = [];
     var storiesUrl = 'https://hacker-news.firebaseio.com/v0/item/';
     var url = '';
     var score = '';
-    var paginationCount = 10;
+    var i;
 
     $.get(this.props.source, function (response) {
 
-      for (var i = 0; i <= paginationCount; i++) {
+      for (i = startIndex; i <= paginationCount; i++) {
+
+        if (i === paginationCount) {
+          if (this.isMounted()) {
+            this.setState({isLoaded: true});    
+            this.setState({isLoadedMore: true});    
+          }
+        }
 
         url = storiesUrl + response[i] + '.json';
         
@@ -131,52 +146,37 @@ var NewSection = React.createClass({
           }
 
           response.isLoaded = true;
+          response.time = timeAgo(response.time);
           response.domain = domain;
-
-          items.push({
-            response: response
-          })
+          response.points = score;
 
           if (this.isMounted()) {
-            this.setState({
-              id: response.id,
-              title: response.title,
-              url: response.url,
-              time: timeAgo(response.time),
-              author: response.by,
-              type: response.type,
-              domain: domain,
-              points: score
-            });
-          }  
+            this.setState({stories: this.state.stories.concat(response)});
+          }
         }.bind(this));
       }
 
     }.bind(this));
   },
   render: function() {
-    return(
-      <div>
-      {
-        items.map(function (data) {
-        return <div className="content" key={data.response.id}> 
-          <img title="loader" src="../images/spinner.gif" className={data.response.isLoaded ? 'hide': ''}/>
-          <div className={data.response.isLoaded ? '': 'hide'}>
-            
-            <a href={data.response.url} target="_blank">{data.response.title}</a> <span className={data.response.domain ? '': 'hide'}>(</span><span title="Domain">{data.response.domain}</span><span>)</span>
-            
-            <div className="bottom-content">
-              <span>{data.response.points}</span>
-              <span className="author">by {data.response.author} </span>
-              <span>| {data.response.time}</span>
-            </div>
-
-            <span className="type">#{data.response.type}</span>
-          </div>
+    var storyList = this.state.stories.map(function (response) {
+      return <div className="content" key={response.id}>
+      <div className={response.isLoaded ? '': 'hide'}>
+        <a href={response.url} target="_blank">{response.title}</a> <span className={response.domain ? '': 'hide'}>(</span><span title="Domain">{response.domain}</span><span>)</span>
+        
+        <div className="bottom-content">
+          <span>{response.points}</span>
+          <span className="author">by {response.by} </span>
+          <span>| {response.time}</span>
         </div>
-        })
-      }
+
+        <span className="type">#{response.type}</span>
       </div>
+      </div>
+    });
+
+    return(
+      <div className="content-container"><div className={this.state.isLoaded ? 'hide': ''}><Spinner /></div> {storyList} <div className={this.state.isLoadedMore ? 'hide': 'load-more'}><Spinner /></div></div>
     );
   }
 });
@@ -187,7 +187,8 @@ var ContainerBox = React.createClass({
       <div>
         <Header />
         <MenuBar />
-        <div className="container">
+        <div className="container" id="container">
+          <a className="goto-top" href="#main-container">Go to top</a>
           <NewSection source="https://hacker-news.firebaseio.com/v0/newstories.json"/>
         </div>
       </div>

@@ -91,7 +91,7 @@ body {
   .header::before {
     content: ' ';
     width: 100%;
-    height: 200px;
+    height: 210px;
     position: absolute;
     top: 0;
     background: #ff6600 url('../images/logo.jpg') no-repeat center;
@@ -122,7 +122,7 @@ body {
 .container {
   width: 1280px;
   min-height: 1024px;
-  margin: 116px auto 30px;
+  margin: 120px auto 30px;
   position: relative;
   color: #000; }
   .container h1 {
@@ -133,13 +133,18 @@ body {
     font-weight: bold; }
 
 .content {
-  min-height: 135px;
-  padding-top: 10px;
+  background: #fff;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
-  background: #fff;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); }
-  .content a {
+  height: 135px; }
+  .content:last-child {
+    margin-bottom: 40px; }
+
+.content-container {
+  min-height: 135px;
+  padding-top: 10px;
+  margin-bottom: 10px; }
+  .content-container a {
     text-decoration: none;
     font-size: 17px;
     margin-left: 20px;
@@ -147,26 +152,40 @@ body {
     display: inline-block;
     color: #4F8EFA;
     text-decoration: underline; }
-    .content a:hover {
+    .content-container a:hover {
       color: #3f71c5; }
-    .content a:visited {
+    .content-container a:visited {
       color: #1A3158; }
-  .content img {
+  .content-container img {
     display: block;
     margin: 0 auto;
-    margin-top: 45px; }
-  .content .author {
+    margin-top: 100px; }
+  .content-container .author {
     color: #FF6600; }
-  .content .bottom-content {
+  .content-container .bottom-content {
     width: 410px;
     height: 30px;
     margin-left: 19px;
     margin-top: 20px;
     color: #4d5763;
     font-size: 14px; }
-  .content .type {
+  .content-container .type {
     margin-left: 20px;
     color: #A0522D; }
+  .content-container .load-more {
+    position: relative;
+    top: -50px; }
+
+.goto-top {
+  width: 100px;
+  height: 20px;
+  position: fixed;
+  right: 65px;
+  text-decoration: underline;
+  bottom: 40px;
+  display: block;
+  cursor: pointer;
+  color: red; }
 
 /*-----------------------------------------------
 	MEDIA QUERY = 1360px to 1023px
