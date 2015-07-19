@@ -3,7 +3,7 @@
 
 var target = document.getElementById('main-container'); //Target element to render the components
 
-var counter = 0;
+var paginationCount = 10;
 
 var Header = React.createClass({
   render: function() {
@@ -46,24 +46,10 @@ var MenuBar = React.createClass({
       </ul>
     );
   }
-
 });
 
 var NewSection = React.createClass({
   getInitialState: function() {
-    var paginationCount = 10;
-
-    $(window).scroll(function() {
-      if ($('.content-container').length > 0) {
-        if($(window).scrollTop() == $(document).height() - $(window).height()) {
-          this.setState({isLoadedMore: false}); 
-          var previousCount = paginationCount + 1;
-          paginationCount = paginationCount + 11;
-          this.getNewStories(previousCount, paginationCount);
-        }
-      }
-    }.bind(this));
-
     return {
       isLoaded: false,
       isLoadedMore: true,
@@ -72,20 +58,27 @@ var NewSection = React.createClass({
     }
   },
   componentDidMount: function() {
-    console.log(this);
 
     this.getNewStories(0, 10);
+
     if (this.state.isSelected === 'New') {
-      this.getNewStories(10);
+      this.getNewStories(0, 10);
     }
     else if (this.state.isSelected === 'Show') {
-      this.getNewStories();
+      this.getNewStories(0, 10);
     }
     else if (this.state.isSelected === 'Jobs') {
-      this.getNewStories();
+      this.getNewStories(0, 10);
     }
   },
-  getNewStories: function (startIndex, paginationCount) {
+  loadMore: function() {
+    
+    this.setState({isLoadedMore: false}); 
+    var previousCount = paginationCount + 1;
+    paginationCount = paginationCount + 11;
+    this.getNewStories(previousCount, paginationCount);
+  },
+  getNewStories: function(startIndex, paginationCount) {
     var ids = [];
     var nextItem = [];
     var storiesUrl = 'https://hacker-news.firebaseio.com/v0/item/';
@@ -176,7 +169,17 @@ var NewSection = React.createClass({
     });
 
     return(
-      <div className="content-container"><div className={this.state.isLoaded ? 'hide': ''}><Spinner /></div> {storyList} <div className={this.state.isLoadedMore ? 'hide': 'load-more'}><Spinner /></div></div>
+      <div className="content-container">
+        <div className={this.state.isLoaded ? 'hide': ''}>
+          <Spinner />
+        </div> 
+        {storyList} 
+        <div className={this.state.isLoadedMore ? 'hide': 'load-more'}>
+          <Spinner />
+        </div>
+
+        <button className={(!this.state.isLoaded) ? 'hide': 'scroll-more'} onClick={this.loadMore}>Load more</button>
+      </div>
     );
   }
 });
@@ -188,7 +191,7 @@ var ContainerBox = React.createClass({
         <Header />
         <MenuBar />
         <div className="container" id="container">
-          <a className="goto-top" href="#main-container">Go to top</a>
+          <a className="goto-top" href="#main-container"></a>
           <NewSection source="https://hacker-news.firebaseio.com/v0/newstories.json"/>
         </div>
       </div>
