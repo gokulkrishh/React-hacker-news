@@ -155,7 +155,7 @@ var NewSection = React.createClass({
     var storyList = this.state.stories.map(function (response) {
       return <div className="content" key={response.id}>
       <div className={response.isLoaded ? '': 'hide'}>
-        <a href={response.url} target="_blank">{response.title}</a> <span className={response.domain ? '': 'hide'}>(</span><span title="Domain">{response.domain}</span><span>)</span>
+        <a href={response.url} target="_blank">{response.title}</a> <div className={response.domain ? 'domain': 'hide'}>(<span title="Domain">{response.domain}</span>)</div>
         
         <div className="bottom-content">
           <span>{response.points}</span>
