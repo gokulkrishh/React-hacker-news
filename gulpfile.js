@@ -22,7 +22,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('browser-sync', function() {
-    browserSync.init(["./app/*.html", "./app/js/*.js", "./app/css/*.css", "./app/images/*.*", "./app/fonts/*.*"], {
+    browserSync.init(["./app/*.html", "./app/js/*.js", "./app/js/*.jsx", "./app/css/*.css", "./app/images/*.*", "./app/fonts/*.*"], {
         server: {
             baseDir: "./app/"
         }
