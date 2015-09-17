@@ -15,19 +15,15 @@ var Header = React.createClass({
 var Container = React.createClass({
   getInitialState: function () {
     return {
-      component : <NewContent />
+      renderComponent : <NewContent />
     }
   },
-
-  componentDidMount: function () {
-    console.log('Mounted');
-  },
-
+  
   changeComponent: function (newComponent) {
-    var component = this.state.component;
+    var renderComponent = this.state.renderComponent;
 
     this.setState({
-      component: newComponent
+      renderComponent: newComponent
     })
   },
 
@@ -37,7 +33,8 @@ var Container = React.createClass({
         <Header/>
         <Menu component={this.changeComponent}/>
         <div className="container">
-          {this.state.component}
+          <a className="goto-top" href="#main-container"></a>
+          {this.state.renderComponent}
         </div>
       </div>
     )

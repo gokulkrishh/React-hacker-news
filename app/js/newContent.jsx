@@ -1,130 +1,160 @@
-var paginationCount = 10;
+var pagination = 10;
 
 var NewContent = React.createClass({
-  getInitialState: function() {
+
+  getInitialState: function () {
     return {
-      isLoaded: false,
-      isLoadedMore: true,
-      stories: [],
-      dummy: []
+      newStories: [],
+      dummy: [1,2,3,4,5,6,7,8,9,10],
+      isLoading: true,
+      isLoadingMore: false
     }
   },
-  componentDidMount: function() {
-    this.getNewStories(0, 10);
+
+  showLoader: function () {
+    this.setState({
+      isLoading: true
+    });
   },
-  loadMore: function() {
+
+  hideLoader: function () {
+    this.setState({
+      isLoading: false
+    });
+  },
+
+  componentDidMount: function () {
+    this.getContentJson(0, pagination, false);
+  },
+
+  getContentJson: function (startIndex, pagination, isLoadingMore) {
+
+    var sourceUrl = 'https://hacker-news.firebaseio.com/v0/newstories.json';
     
-    this.setState({isLoadedMore: false}); 
-    var previousCount = paginationCount + 1;
-    paginationCount = paginationCount + 11;
-    this.getNewStories(previousCount, paginationCount);
-  },
-  getNewStories: function(startIndex, paginationCount) {
-    var ids = [];
-    var nextItem = [];
-    var storiesUrl = 'https://hacker-news.firebaseio.com/v0/item/';
-    var url = '';
-    var score = '';
-    var i;
+    $.get(sourceUrl, function (response) {
+      
+      if (response.length == 0) {
+        this.hideLoader();
+        return;
+      }
 
-    var source= "https://hacker-news.firebaseio.com/v0/newstories.json";
+      for(var i = startIndex; i <= pagination; i++) {
+        if (i == pagination) {
+          
+          if(this.isMounted()) this.hideLoader();
 
-    $.get(source, function (response) {
+          if (this.isMounted() && isLoadingMore) this.setState({ isLoadingMore: false });
 
-      for (i = startIndex; i <= paginationCount; i++) {
-
-        if (i === paginationCount) {
-          if (this.isMounted()) {
-            this.setState({isLoaded: true});    
-            this.setState({isLoadedMore: true});    
-          }
+          this.loadMore(pagination);
+          return false;
         }
 
-        url = storiesUrl + response[i] + '.json';
-        
-        $.get(url, function (response) {
-
-          var domain = response.url ? response.url.split(':')[1].split('//')[1].split('/')[0] : ''; //To get domain name
-
-          function timeAgo(ts) {
-            var d = new Date(); // Gets the current time
-            var nowTs = Math.floor(d.getTime() / 1000);
-            var seconds = nowTs - ts;
-
-            // more that two days
-            if (seconds > 2*24*3600) {
-               return 'a few days ago';
-            }
-            
-            // a day
-            if (seconds > 24*3600) {
-             return 'yesterday';
-            }
-
-            if (seconds > 3600) {
-             return 'a few hours ago';
-            }
-            if (seconds > 1800) {
-             return 'Half an hour ago';
-            }
-            if (seconds > 60) {
-              return Math.floor(seconds/60) + ' minutes ago';
-            }
-          }
-
-         
-          //To add plural and singular work in points
-          if (response.score > 1) {
-            score = response.score + ' Points '
-          }
-          else {
-            score = response.score + ' Point '
-          }
-
-          response.isLoaded = true;
-          response.time = timeAgo(response.time);
-          response.domain = domain;
-          response.points = score;
-
-          if (this.isMounted()) {
-            this.setState({stories: this.state.stories.concat(response)});
-          }
-        }.bind(this));
-      }
+        this.getContentData(response[i], pagination);
+      }      
 
     }.bind(this));
   },
-  render: function() {
-    var storyList = this.state.stories.map(function (response) {
+
+  getContentData: function (id) {
+
+    var contentUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json';
+
+    $.get(contentUrl, function (response) {
+      
+      if (response.length == 0) {
+        if (this.isMounted()) {
+          this.hideLoader();
+        }
+        return;
+      }
+
+      var domain = response.url ? response.url.split(':')[1].split('//')[1].split('/')[0] : '';
+
+      response.domain = domain;
+
+      this.setState({newStories : this.state.newStories.concat(response)});
+
+    }.bind(this));
+  },
+
+  convertTime: function (time) {
+    var d = new Date();
+    var currentTime = Math.floor(d.getTime() / 1000);
+    var seconds = currentTime - time;
+
+    // more that two days
+    if (seconds > 2*24*3600) {
+      return 'a few days ago';
+    }
+
+    // a day
+    if (seconds > 24*3600) {
+      return 'yesterday';
+    }
+
+    if (seconds > 3600) {
+      return 'a few hours ago';
+    }
+    
+    if (seconds > 1800) {
+      return 'Half an hour ago';
+    }
+    
+    if (seconds > 60) {
+      return Math.floor(seconds/60) + ' minutes ago';
+    }
+  },
+
+  loadMore: function (pagination) {
+
+    $(window).unbind('scroll');
+
+    $(window).bind('scroll', function () {
+
+      if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+          var previousCount = pagination + 1;
+          pagination = pagination + 11;
+
+          this.setState({isLoadingMore : true}); //To show loader at the bottom
+
+          this.getContentJson(previousCount, pagination, true);
+      }
+    }.bind(this));
+  },
+
+  render: function () {
+    var newStories = this.state.newStories.map(function (response, index) {
       return (
-      	<div className="content" key={response.id}>
-		      <div className={response.isLoaded ? '': 'hide'}>
-		        <a href={response.url} target="_blank">{response.title}</a> <div className={response.domain ? 'domain': 'hide'}>(<span title="Domain">{response.domain}</span>)</div>
-		        
-		        <div className="bottom-content">
-		          <span>{response.points}</span>
-		          <span className="author">by {response.by} </span>
-		          <span>| {response.time}</span>
-		        </div>
+        <div key={index}>
+          <div className="content">
+            <a target="_blank" href={response.url}>{response.title} </a>
+            
+            <div className={response.domain ? 'domain': 'hide'}> (<span title="Domain">{response.domain}</span>)</div>
+          
+            <div className="bottom-content">
+              <span>{response.score} {(response.score > 1) ? ' Points' : ' Point'} </span>
+              <span className="author"> by {response.by}</span>
+              <span> | {this.convertTime(response.time)} </span>
+            </div>
 
-		        <span className="type">#{response.type}</span>
-		      </div>
-      	</div>
+            <span className="type">#{response.type}</span>
+          </div>
+        </div>
       )
-    });
+    }.bind(this));
 
-    return(
+    return (
       <div className="content-container">
-        <div className={this.state.isLoaded ? 'hide': ''}>
-          <Spinner />
-        </div> 
-        {storyList} 
-        <div className={this.state.isLoadedMore ? 'hide': 'load-more'}>
+        <div className={this.state.isLoading ? '': 'hide'}>
           <Spinner />
         </div>
-
-        <button className={(!this.state.isLoaded) ? 'hide': 'scroll-more'} onClick={this.loadMore}>Load more</button>
+        
+        {newStories}
+        
+        <div className={ this.state.isLoadingMore ? 'mtop50' : 'hide'}>
+          <Spinner />
+        </div>
       </div>
-    );
+    )
   }
 });
