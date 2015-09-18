@@ -1,8 +1,8 @@
 # React hacker news
 
-Hacker News site using React.js with minimal material design
+Hacker News site using React.js with minimalistic material design.
 
-## Work in progress (only new stories from hacker news API is implemented)
+### Work in progress
 
 ## [Demo](https://gokulkrishh.github.io/demo/ReactJS/hacker-news/)
 
