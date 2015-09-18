@@ -1,8 +1,11 @@
-var pagination = 10;
 
-var NewContent = React.createClass({
+'use strict';
 
-  getInitialState: function () {
+const pagination = 10;
+
+const NewContent = React.createClass({
+
+  getInitialState() {
     return {
       newStories: [],
       dummy: [1,2,3,4,5,6,7,8,9,10],
@@ -11,25 +14,25 @@ var NewContent = React.createClass({
     }
   },
 
-  showLoader: function () {
+  showLoader() {
     this.setState({
       isLoading: true
     });
   },
 
-  hideLoader: function () {
+  hideLoader() {
     this.setState({
       isLoading: false
     });
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.getContentJson(0, pagination, false);
   },
 
-  getContentJson: function (startIndex, pagination, isLoadingMore) {
+  getContentJson(startIndex, pagination, isLoadingMore) {
 
-    var sourceUrl = 'https://hacker-news.firebaseio.com/v0/newstories.json';
+    let sourceUrl = 'https://hacker-news.firebaseio.com/v0/newstories.json';
     
     $.get(sourceUrl, function (response) {
       
@@ -38,7 +41,7 @@ var NewContent = React.createClass({
         return;
       }
 
-      for(var i = startIndex; i <= pagination; i++) {
+      for(let i = startIndex; i <= pagination; i++) {
         if (i == pagination) {
           
           if(this.isMounted()) this.hideLoader();
@@ -55,9 +58,9 @@ var NewContent = React.createClass({
     }.bind(this));
   },
 
-  getContentData: function (id) {
+  getContentData(id) {
 
-    var contentUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json';
+    let contentUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json';
 
     $.get(contentUrl, function (response) {
       
@@ -68,7 +71,7 @@ var NewContent = React.createClass({
         return;
       }
 
-      var domain = response.url ? response.url.split(':')[1].split('//')[1].split('/')[0] : '';
+      let domain = response.url ? response.url.split(':')[1].split('//')[1].split('/')[0] : '';
 
       response.domain = domain;
 
@@ -77,10 +80,10 @@ var NewContent = React.createClass({
     }.bind(this));
   },
 
-  convertTime: function (time) {
-    var d = new Date();
-    var currentTime = Math.floor(d.getTime() / 1000);
-    var seconds = currentTime - time;
+  convertTime(time) {
+    let d = new Date();
+    let currentTime = Math.floor(d.getTime() / 1000);
+    let seconds = currentTime - time;
 
     // more that two days
     if (seconds > 2*24*3600) {
@@ -105,14 +108,14 @@ var NewContent = React.createClass({
     }
   },
 
-  loadMore: function (pagination) {
+  loadMore(pagination) {
 
     $(window).unbind('scroll');
 
     $(window).bind('scroll', function () {
 
       if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-          var previousCount = pagination + 1;
+          let previousCount = pagination + 1;
           pagination = pagination + 11;
 
           this.setState({isLoadingMore : true}); //To show loader at the bottom
@@ -122,8 +125,8 @@ var NewContent = React.createClass({
     }.bind(this));
   },
 
-  render: function () {
-    var newStories = this.state.newStories.map(function (response, index) {
+  render() {
+    var newStories = this.state.newStories.map((response, index) => {
       return (
         <div key={index}>
           <div className="content">
@@ -141,7 +144,7 @@ var NewContent = React.createClass({
           </div>
         </div>
       )
-    }.bind(this));
+    }, this);
 
     return (
       <div className="content-container">

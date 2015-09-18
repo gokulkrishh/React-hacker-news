@@ -1,6 +1,8 @@
-var JobsContent = React.createClass({
-  render: function() {
-  	console.log('Job')
+
+'use strict';
+
+const JobsContent = React.createClass({
+  render() {
     return (
     	<div className="content-container">
       	<div className="content">Jobs Content</div>
