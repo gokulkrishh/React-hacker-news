@@ -1,33 +1,33 @@
 
 'use strict';
 
- //Target element to render the components
-var target = document.getElementById('main-container');
+//Target element to render the components
+let target = document.getElementById('main-container');
 
-var Header = React.createClass({
-  render: function() {
+let Header = React.createClass({
+  render() {
     return (
       <div className="header"></div>
     );
   }
 });
 
-var Container = React.createClass({
-  getInitialState: function () {
+let Container = React.createClass({
+  getInitialState() {
     return {
-      renderComponent : <NewContent />
+      renderComponent : <NewContent source="https://hacker-news.firebaseio.com/v0/newstories.json"/>
     }
   },
   
-  changeComponent: function (newComponent) {
-    var renderComponent = this.state.renderComponent;
+  changeComponent(newComponent) {
+    let renderComponent = this.state.renderComponent;
 
     this.setState({
       renderComponent: newComponent
     })
   },
 
-  render: function() {
+  render() {
     return (
       <div>
         <Header/>

@@ -1,14 +1,16 @@
 {
-    "name": "React-hacker-news",
-    "version": "0.0.1",
-    "description": "Hacker News site using React.js with minimalistic material design",
-    "devDependencies": {
-        "gulp": "~3.8.10",
-        "gulp-sass": "~1.3.2",
-        "gulp-concat": "~2.4.3",
-        "browser-sync": "~1.9.1"
-    },
-    "engines": {
-        "node": ">=0.10.0"
-    }
+  "name": "React-hacker-news",
+  "version": "0.0.1",
+  "description": "Hacker News site using React.js with minimalistic material design",
+  "devDependencies": {
+    "browser-sync": "~1.9.1",
+    "gulp": "~3.8.10",
+    "gulp-babel": "^5.2.1",
+    "gulp-concat": "~2.4.3",
+    "gulp-react": "^3.0.1",
+    "gulp-sass": "~1.3.2"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
 }

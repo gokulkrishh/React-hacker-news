@@ -1,6 +1,8 @@
 
 * {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 body {
@@ -84,8 +86,10 @@ body {
   background: #fff;
   box-shadow: 0 1px 3px 0px rgba(0,0,0,.14), 0 2px 1px -2px rgba(0,0,0,.2), 0 1px 2px 0 rgba(0,0,0,.12);
   margin-bottom: 10px;
-  height: 135px;
+  min-height: 135px;
   cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
 
   &:last-child {
     margin-bottom: 30px;
@@ -105,11 +109,11 @@ body {
   a {
   	text-decoration: none;
   	font-size: 17px;
-  	margin-left: 20px;
   	margin-top: 20px;
   	display: inline-block;
   	color: #4F8EFA;
     text-decoration: underline;
+    line-height: 20px;
 
   	&:hover {
   		color: #3f71c5;
@@ -128,11 +132,33 @@ body {
 
   .author {
 	  color: #FF6600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .search-web,
+  .domain a,
+  .domain span {
+    text-decoration: none;
+    color: #4d5763;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .search-web {
+    span {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .type {
-    margin-left: 20px;
     color: #A0522D; 
+    margin-top: 10px;
+    display: inline-block;
   }
 
   .load-more {
@@ -251,7 +277,6 @@ body {
 .bottom-content {
   width: 410px;
   height: 30px;
-  margin-left: 19px;
   margin-top: 20px;
   color: rgb(77, 87, 99);
   font-size: 14px;
@@ -260,6 +285,12 @@ body {
 .domain {
   display: inline-block;
   margin-left: 10px;
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .goto-top {
@@ -359,7 +390,6 @@ body {
   .domain {
     display: inline-block;
     margin-top: 15px;
-    margin-left: 18px;
     height: 18px;
   }
 
@@ -373,9 +403,12 @@ body {
 ------------------------------------------------*/
 
 @media (max-width: 479px) and (min-width: 320px) {
-  .container,
-  .bottom-content {
+  .container {
     width: 300px;
+  }
+
+  .bottom-content {
+    width: 280px;
   }
 
   .menu {
@@ -398,18 +431,11 @@ body {
   .domain {
     display: inline-block;
     margin-top: 15px;
-    margin-left: 18px;
   }
 
   .content {
     &:hover {
       background: #fff;
-    }
-  }
-
-  .content-container {
-    a {
-      padding-right: 6px;
     }
   }
 

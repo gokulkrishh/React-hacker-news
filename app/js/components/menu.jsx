@@ -1,5 +1,7 @@
 
-var Menu = React.createClass({
+'use strict';
+
+let Menu = React.createClass({
   getInitialState: function () {
     return {
       items: [{
@@ -21,7 +23,7 @@ var Menu = React.createClass({
   },
   
   changeMenu: function (index, menuName) {
-    var items = this.state.items;
+    let items = this.state.items;
 
     items.map(function (item) {
       item.selected = false;
@@ -29,13 +31,13 @@ var Menu = React.createClass({
 
     //Based on the menu, change the components
     if (menuName === 'New') {
-      this.props.component(<NewContent />);
+      this.props.component(<NewContent source="https://hacker-news.firebaseio.com/v0/newstories.json"/>);
     }
     else if (menuName === 'Show') {
-      this.props.component(<ShowContent />);
+      this.props.component(<ShowContent source="https://hacker-news.firebaseio.com/v0/newstories.json"/>);
     }
     else if (menuName === 'Jobs') {
-      this.props.component(<JobsContent />);
+      this.props.component(<JobsContent source="https://hacker-news.firebaseio.com/v0/newstories.json"/>);
     }
 
     items[index].selected = true;

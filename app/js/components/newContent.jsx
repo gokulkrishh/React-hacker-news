@@ -8,7 +8,6 @@ const NewContent = React.createClass({
   getInitialState() {
     return {
       newStories: [],
-      dummy: [1,2,3,4,5,6,7,8,9,10],
       isLoading: true,
       isLoadingMore: false
     }
@@ -32,7 +31,7 @@ const NewContent = React.createClass({
 
   getContentJson(startIndex, pagination, isLoadingMore) {
 
-    let sourceUrl = 'https://hacker-news.firebaseio.com/v0/newstories.json';
+    let sourceUrl = this.props.source;
     
     $.get(sourceUrl, function (response) {
       
@@ -127,20 +126,22 @@ const NewContent = React.createClass({
 
   render() {
     var newStories = this.state.newStories.map((response, index) => {
+      
+      let searchQuery = 'https://www.google.co.in/search?q=' + response.title;
+      
       return (
         <div key={index}>
           <div className="content">
-            <a target="_blank" href={response.url}>{response.title} </a>
+            <a className="title" target="_blank" href={response.url}>{response.title} </a>
             
-            <div className={response.domain ? 'domain': 'hide'}> (<span title="Domain">{response.domain}</span>)</div>
+            <div className={response.domain ? 'domain': 'hide'}> (<a href="#" title="Domain">{response.domain}</a>)</div>
           
             <div className="bottom-content">
-              <span>{response.score} {(response.score > 1) ? ' Points' : ' Point'} </span>
+              <span>{response.score} {(response.score > 1) ? ' points' : ' point'} </span>
               <span className="author"> by {response.by}</span>
               <span> | {this.convertTime(response.time)} </span>
+              <a href={searchQuery} target="_blank" className="search-web"> | <span>web</span></a>
             </div>
-
-            <span className="type">#{response.type}</span>
           </div>
         </div>
       )
