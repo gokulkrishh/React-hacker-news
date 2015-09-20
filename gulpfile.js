@@ -20,7 +20,7 @@ var gulp = require('gulp'),
 gulp.task('sass', function () {
     gulp.src(['./app/scss/master.scss'])
         .pipe(sass({includePaths: ['scss']}))
-        .pipe(gulp.dest('./app/css'))
+        .pipe(gulp.dest('./app/build/css'))
         .pipe(concat('master.css'))
         .pipe(gulp.dest('./app/build/css/'));
 });
