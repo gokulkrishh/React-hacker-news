@@ -26,20 +26,17 @@ gulp.task('sass', function () {
 });
 
 gulp.task('images', function () {
-    console.log('Running image task -------------------->');
     gulp.src(['./app/images/*.*'])
         .pipe(gulp.dest('./app/build/images'))
 });
 
 gulp.task('js', function () {
-    console.log('Running js task -------------------->');
     gulp.src(['./app/js/lib/*.js'])
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest('./app/build/js'))
 });
 
 gulp.task('js:components', function () {
-    console.log('Running components task -------------------->');
     gulp.src(['./app/js/components/*.jsx', './app/js/*.jsx'])
         .pipe(babel())
         .pipe(concat('app.js'))
@@ -59,6 +56,6 @@ gulp.task('browser-sync', function() {
 -----------------------------------------------------------*/
 gulp.task('default', ['js', 'js:components', 'sass', 'images', 'browser-sync'], function () {
     gulp.watch("app/scss/*.scss", ['sass']);
-    gulp.watch("app/js/**/*.jsx", "app/js/application.jsx", ['js:components']);
+    gulp.watch(["app/js/**/*.jsx", "app/js/application.jsx"], ['js:components']);
     gulp.watch("app/js/lib/*.js", ['js']);
 });
