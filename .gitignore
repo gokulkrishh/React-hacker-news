@@ -3,8 +3,7 @@ logs
 *.log
 
 .DS_Store
-./app/.DS_Store
-./app/build
+build
 
 # Runtime data
 pids

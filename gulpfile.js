@@ -25,6 +25,12 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./app/build/css/'));
 });
 
+gulp.task('images', function () {
+    console.log('Running image task -------------------->');
+    gulp.src(['./app/images/*.*'])
+        .pipe(gulp.dest('./app/build/images'))
+});
+
 gulp.task('js', function () {
     console.log('Running js task -------------------->');
     gulp.src(['./app/js/lib/*.js'])
@@ -51,7 +57,7 @@ gulp.task('browser-sync', function() {
 /*-----------------------------------------------------------
  GULP : WATCH TASKS
 -----------------------------------------------------------*/
-gulp.task('default', ['js', 'js:components', 'sass', 'browser-sync'], function () {
+gulp.task('default', ['js', 'js:components', 'sass', 'images', 'browser-sync'], function () {
     gulp.watch("app/scss/*.scss", ['sass']);
     gulp.watch("app/js/**/*.jsx", "app/js/application.jsx", ['js:components']);
     gulp.watch("app/js/lib/*.js", ['js']);
