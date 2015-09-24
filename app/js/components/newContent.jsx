@@ -1,6 +1,9 @@
 
 'use strict';
 
+import React from 'react';
+import Spinner from './spinner.jsx';
+
 const pagination = 10;
 
 const NewContent = React.createClass({
@@ -113,7 +116,7 @@ const NewContent = React.createClass({
 
     $(window).bind('scroll', function () {
 
-      if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
           let previousCount = pagination + 1;
           pagination = pagination + 11;
 
@@ -162,3 +165,6 @@ const NewContent = React.createClass({
     )
   }
 });
+
+module.exports = NewContent;
+

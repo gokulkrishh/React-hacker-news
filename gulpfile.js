@@ -9,6 +9,9 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     browserSync = require('browser-sync'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    babelify = require('babelify'),
     babel = require('gulp-babel');
 
 /*-----------------------------------------------------------
@@ -42,9 +45,10 @@ gulp.task('js', function () {
 });
 
 gulp.task('js:components', function () {
-    gulp.src(['./app/js/components/*.jsx', './app/js/*.jsx'])
-        .pipe(babel())
-        .pipe(concat('app.js'))
+    browserify('./app/js/application.jsx')
+        .transform('babelify')
+        .bundle()
+        .pipe(source('bundle.js'))
         .pipe(gulp.dest('./build/js'))
 });
 

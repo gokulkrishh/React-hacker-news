@@ -1,6 +1,8 @@
 
 'use strict';
 
+import React from 'react';
+
 const Spinner = React.createClass({
   render() {
     return (
@@ -10,3 +12,5 @@ const Spinner = React.createClass({
     );
   }
 });
+
+module.exports = Spinner;

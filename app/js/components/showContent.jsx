@@ -10,3 +10,5 @@ const ShowContent = React.createClass({
     );
   }
 });
+
+module.exports = ShowContent;

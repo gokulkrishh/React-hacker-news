@@ -10,3 +10,5 @@ const JobsContent = React.createClass({
     );
   }
 });
+
+module.exports = JobsContent;

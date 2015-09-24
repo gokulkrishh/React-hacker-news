@@ -1,6 +1,10 @@
 
 'use strict';
 
+import React from 'react';
+import NewContent from './components/newContent.jsx';
+import Menu from './components/menu.jsx';
+
 //Target element to render the components
 let target = document.getElementById('main-container');
 
@@ -15,15 +19,16 @@ let Header = React.createClass({
 let Container = React.createClass({
   getInitialState() {
     return {
-      renderComponent : <NewContent source="https://hacker-news.firebaseio.com/v0/newstories.json"/>
+      renderComponent : <NewContent source="https://hacker-news.firebaseio.com/v0/newstories.json"/>,
+      component: null
     }
   },
   
-  changeComponent(newComponent) {
+  changeComponent(component) {
     let renderComponent = this.state.renderComponent;
 
     this.setState({
-      renderComponent: newComponent
+      renderComponent: component
     })
   },
 
@@ -31,7 +36,7 @@ let Container = React.createClass({
     return (
       <div>
         <Header/>
-        <Menu component={this.changeComponent}/>
+        <Menu component={this.changeComponent} />
         <div className="container">
           <a className="goto-top" href="#main-container"></a>
           {this.state.renderComponent}
@@ -43,4 +48,4 @@ let Container = React.createClass({
 
 
 //Render the components
-React.render(<Container/>, target);
+React.render(<Container />, target);
