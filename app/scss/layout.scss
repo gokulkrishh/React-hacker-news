@@ -37,7 +37,7 @@ body {
   	height: 210px;
   	position: absolute;
   	top: 0;
-  	background: #ff6600 url('../images/logo.jpg') no-repeat center;
+  	background: #F77016 url('../images/logo.jpg') no-repeat center;
   	background-position-y: -150px;
   	will-change: transform;
   }
@@ -133,6 +133,7 @@ body {
     a {
       color: #4F8EFA;
       text-decoration: underline;
+      margin-top: 0;
     }
   }
 
@@ -528,6 +529,7 @@ body {
 @media (max-width: 479px) and (min-width: 320px) {
   .container {
     width: 300px;
+    min-height: 350px;
   }
 
   .bottom-content {
@@ -537,7 +539,7 @@ body {
   }
 
   .menu {
-    width: 380px;
+    width: 360px;
     margin: 0 auto;
     top: 115px;
 
