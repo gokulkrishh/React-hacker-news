@@ -130,7 +130,7 @@ const NewContent = React.createClass({
 
   changeMenu() {
     $('.menu li').removeClass('selected');
-  }
+  },
 
   render() {
     var newStories = this.state.newStories.map((response, index) => {
