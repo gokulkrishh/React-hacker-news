@@ -24,6 +24,11 @@ let Menu = React.createClass({
         name: 'jobs',
         id: 3,
         selected: false
+      },
+      {
+        name: 'about',
+        id: 4,
+        selected: false
       }]
     }
   },

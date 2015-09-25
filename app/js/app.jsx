@@ -6,7 +6,9 @@ import Menu from './components/menu.jsx'
 import NewContent from './components/feeds/newContent.jsx'
 import ShowContent from './components/feeds/showContent.jsx'
 import JobsContent from './components/feeds/jobsContent.jsx'
+import AboutContent from './components/feeds/aboutContent.jsx'
 import Profile from './components/user/profile.jsx'
+import PageNotFound from './components/errorPage.jsx'
 import { Router, Route, Link, IndexRoute, Redirect } from 'react-router'
 
 //Target element to render the components
@@ -44,8 +46,7 @@ const Message = React.createClass({
   render() {
     return <h3>Message</h3>
   }
-})
-
+});
 
 //Render the components
 React.render(
@@ -55,7 +56,10 @@ React.render(
       <Route path="new" component={NewContent} />
       <Route path="show" component={ShowContent} />
       <Route path="jobs" component={JobsContent} />
+      <Route path="about" component={AboutContent} />
       <Route path="user/:id" component={Profile} />
+
+      <Route path="*" component={PageNotFound}/>
     </Route>
   </Router>
 

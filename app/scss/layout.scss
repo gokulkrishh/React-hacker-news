@@ -20,6 +20,14 @@ body {
 	display: none !important;
 }
 
+.f-right {
+  float: right;
+}
+
+.f-left {
+  float: left;
+}
+
 .header {
   overflow: hidden;
 
@@ -90,15 +98,16 @@ body {
 
 .content {
   background: #fff;
-  box-shadow: 0 2px 6px 0px rgba(50, 50, 50, 0.12);
   margin-bottom: 10px;
   min-height: 90px;
-  cursor: pointer;
+  cursor: default;
   padding-left: 10px;
   padding-right: 10px;
 
   &:last-child {
-    margin-bottom: 30px;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
   }
 
   &:hover {
@@ -113,6 +122,38 @@ body {
   
   .title {
     margin-right: 10px;
+  }
+
+  .about-content {  
+    width: 85%;
+    margin: 20px auto 0 45px;
+    margin-top: 10px;
+    line-height: 1.5;
+
+    a {
+      color: #4F8EFA;
+      text-decoration: underline;
+    }
+  }
+
+  .about-page { 
+    min-height: 360px;
+    cursor: default;
+  }
+
+  .heading {
+    display: block;
+    text-align: left;
+    margin-left: 25px;
+    padding-top: 10px;
+
+    &:first-child {
+      padding-top: 30px;
+    }
+
+    &:last-child {
+      margin-bottom: 20px;
+    }
   }
 
   a {
@@ -197,9 +238,11 @@ body {
 }
 
 .profile-content {
-  min-height: 280px;
+  min-height: 250px;
   position: relative;
   top: 10px;
+  cursor: default;
+  padding-top: 1px;
 
   .spinner-container {
     margin: 0 auto;
@@ -211,18 +254,21 @@ body {
 
   .content-added {
     min-height: 200px;
+    margin-top: 15px;
   }
 
   h1 {
     display: block;
     min-height: 35px;
-    margin-top: 12px;
-    margin-left: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
     font-size: 16px;
     font-weight: normal;
     color: #000;
-    position: relative;
-    top: 20px;
+
+    &:first-child {
+      margin-top: 15px;
+    }
   }
 
   span:nth-child(even) {
@@ -230,6 +276,12 @@ body {
     word-break: break-all;
     line-height: 1.5;
   }
+}
+
+.page-not-found {
+  margin-top: 250px;
+  text-align: center;
+  font-size: 20px;
 }
 
 
@@ -343,7 +395,6 @@ body {
 .bottom-content {
   width: 410px;
   height: 30px;
-  margin-top: 10px;
   color: rgb(77, 87, 99);
   font-size: 13px;
 }
@@ -424,6 +475,10 @@ body {
   .goto-top {
     right: 30px;
   }
+
+  .domain {
+    display: none;
+  }
 }
 
 /*-----------------------------------------------
@@ -442,7 +497,7 @@ body {
   }
 
   .menu {
-    width: 460px;
+    width: 480px;
     margin: 0 auto;
     top: 120px;
   }
@@ -458,9 +513,7 @@ body {
   }
 
   .domain {
-    display: inline-block;
-    margin-top: 10px;
-    height: 18px;
+    display: none;
   }
 
   .goto-top {
@@ -484,7 +537,7 @@ body {
   }
 
   .menu {
-    width: 300px;
+    width: 380px;
     margin: 0 auto;
     top: 115px;
 
@@ -496,14 +549,22 @@ body {
     }
   }
 
+  .content-container {
+    .about-content {
+      margin: 20px auto 0 35px;
+    }
+
+    .heading {
+      margin-left: 15px;
+    }
+  }
+
   .content {
     min-height: 80px;
   }
 
   .domain {
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: 0;
+    display: none;
   }
 
   .content {

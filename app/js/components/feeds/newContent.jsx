@@ -142,7 +142,7 @@ const NewContent = React.createClass({
           <div className="content">
             <a className="title" target="_blank" href={response.url}>{response.title} </a>
             
-            <div className={response.domain ? 'domain': 'hide'}> (<a href="#" title="Domain">{response.domain}</a>)</div>
+            <div className={response.domain ? 'domain': 'hide'}> (<a href={'http://' + response.domain} title="Domain">{response.domain}</a>)</div>
           
             <div className="bottom-content">
               <span>{response.score} {(response.score > 1) ? ' points' : ' point'} </span>

@@ -72,7 +72,7 @@ gulp.task('clean', function() {
 -----------------------------------------------------------*/
 gulp.task('default', ['clean', 'html', 'sass', 'js','images', 'browser-sync'], function () {
 	gulp.watch("app/scss/*.scss", ['sass']);
-	gulp.watch(["app/js/**/*.jsx", "app/js/application.jsx"], ['js:components']);
+	gulp.watch(["app/js/**/*.jsx", "app/js/**/**/*.jsx", "app/js/*.jsx"], ['js:components']);
 	gulp.watch("app/*.html", ['html']);
 	gulp.watch("app/images/*.*", ['images']);
 });

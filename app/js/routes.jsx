@@ -1,19 +1,9 @@
 
-// 'use strict';
+'use strict';
 
+import { Router, Route, Link, IndexRoute, Redirect } from 'react-router'
 
-// import New from './components/newContent.jsx'
-// import Show from './components/showContent.jsx'
-// import Jobs from './components/jobsContent.jsx'
-
-// const routes = {
-//   path: '/',
-//   component: App,
-//   childRoutes: [
-//     { path: 'new', component: New },
-//     { path: 'show', component: Show },
-//     { path: 'jobs', component: Jobs },
-//   ]
-// }
-
-// module.exports = routes;
+Router.run(routes, (Handler, state) => { 
+	console.log('Handler --->', Handler);
+	console.log('state --->', state);
+});
