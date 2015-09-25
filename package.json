@@ -1,7 +1,7 @@
 {
   "name": "React-hacker-news",
   "version": "0.0.1",
-  "description": "Hacker News site using React.js with minimalistic material design",
+  "description": "Hacker News Site using React.js with minimalistic material design",
   "devDependencies": {
     "browser-sync": "~1.9.1",
     "gulp": "~3.8.10",
@@ -11,5 +11,9 @@
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "del": "^2.0.2",
+    "react-router": "^1.0.0-rc1"
   }
 }

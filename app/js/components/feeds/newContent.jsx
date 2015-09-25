@@ -2,7 +2,8 @@
 'use strict';
 
 import React from 'react';
-import Spinner from './spinner.jsx';
+import Spinner from '../spinner.jsx';
+import { Link } from 'react-router'
 
 const pagination = 10;
 
@@ -34,11 +35,11 @@ const NewContent = React.createClass({
 
   getContentJson(startIndex, pagination, isLoadingMore) {
 
-    let sourceUrl = this.props.source;
+    let sourceUrl = 'https://hacker-news.firebaseio.com/v0/newstories.json';
     
     $.get(sourceUrl, function (response) {
       
-      if (response.length == 0) {
+      if (response && response.length == 0) {
         this.hideLoader();
         return;
       }
@@ -127,6 +128,10 @@ const NewContent = React.createClass({
     }.bind(this));
   },
 
+  changeMenu() {
+    $('.menu li').removeClass('selected');
+  }
+
   render() {
     var newStories = this.state.newStories.map((response, index) => {
       
@@ -141,7 +146,9 @@ const NewContent = React.createClass({
           
             <div className="bottom-content">
               <span>{response.score} {(response.score > 1) ? ' points' : ' point'} </span>
-              <span className="author"> by {response.by}</span>
+              <span>by  
+                <Link onClick={this.changeMenu} className="author" to={'/user/' + response.by}>{response.by}</Link>
+              </span>
               <span> | {this.convertTime(response.time)} </span>
               <a href={searchQuery} target="_blank" className="search-web"> | <span>web</span></a>
             </div>
@@ -157,7 +164,7 @@ const NewContent = React.createClass({
         </div>
         
         {newStories}
-        
+        {this.props.children}
         <div className={ this.state.isLoadingMore ? 'mtop50' : 'hide'}>
           <Spinner />
         </div>
