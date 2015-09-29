@@ -12,23 +12,19 @@ let Menu = React.createClass({
     return {
       items: [{
         name: 'new',
-        id: 1,
-        selected: true
+        id: 1
       },
       {
         name: 'show',
-        id: 2,
-        selected: false
+        id: 2
       },
       {
         name: 'jobs',
-        id: 3,
-        selected: false
+        id: 3
       },
       {
         name: 'about',
-        id: 4,
-        selected: false
+        id: 4
       }]
     }
   },
@@ -58,8 +54,8 @@ let Menu = React.createClass({
           { 
             this.state.items.map(function(item, index) {
               return (
-                <li className={ item.selected ? 'selected': '' } key={ item.id }>
-                  <Link to={ '/' + item.name } onClick={ this.changeMenu.bind(this, index) }>{ item.name }</Link>
+                <li key={ item.id }>
+                  <Link to={ '/' + item.name } activeClassName="selected">{ item.name }</Link>
                 </li>
               )
             }.bind(this))

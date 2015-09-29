@@ -67,16 +67,19 @@ body {
 	  font-weight: bold;
 	  text-align: center;
 	  cursor: pointer;
-
-	  &.selected {
-			border-bottom: 2px solid #fff;
-	  }
   }
 
   a {
     color: #fff;
     text-decoration: none;
     text-transform: capitalize;
+    width: 60px;
+    display: inline-block;
+    padding-bottom: 9px;
+
+    &.selected {
+       border-bottom: 2px solid #fff;
+    }
   }
 }
 
@@ -122,6 +125,11 @@ body {
   
   .title {
     margin-right: 10px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;      
+    }
   }
 
   .about-content {  
@@ -245,6 +253,10 @@ body {
   cursor: default;
   padding-top: 1px;
 
+  &:hover {
+    background: #fff;
+  }
+
   .spinner-container {
     margin: 0 auto;
     text-align: center;
@@ -264,7 +276,7 @@ body {
     margin-top: 10px;
     margin-left: 10px;
     font-size: 16px;
-    font-weight: normal;
+    font-weight: bold;
     color: #000;
 
     &:first-child {
@@ -276,6 +288,7 @@ body {
     color: #4d5763;
     word-break: break-all;
     line-height: 1.5;
+    font-weight: normal;
   }
 }
 

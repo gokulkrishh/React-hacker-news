@@ -48,11 +48,15 @@ const Message = React.createClass({
   }
 });
 
+let redirectToChild = (location, replaceState) => {
+  replaceState(null, '/new');
+}
+
 //Render the components
 React.render(
   <Router>
     <Route path="/" component={App}>
-      <IndexRoute component={NewContent} />
+      <IndexRoute  component={NewContent} onEnter={redirectToChild}/>
       <Route path="new" component={NewContent} />
       <Route path="show" component={ShowContent} />
       <Route path="jobs" component={JobsContent} />
