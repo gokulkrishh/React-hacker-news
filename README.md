@@ -2,7 +2,18 @@
 
 Hacker News site using React.js with minimalistic material design.
 
-### Work in progress
+*Framework and Libraries*
+
+ - React.js with ES6
+ - React-Router for routing
+ - jQuery for ajax
+
+*Build tools*
+
+ - Gulp with babel transpiler to convert ES6 to ES5 Javascript
+ - Browserify to use node module in the browser (check my gulpFile)
+
+### Work in progress (reply threads)
 
 ## [Demo](http://gokulkrishh.github.io/demo/hacker-news/)
 
