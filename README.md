@@ -2,6 +2,8 @@
 
 Hacker News site using React.js with minimalistic material design.
 
+*Using ES6 with gulp and browserify*
+
 ### Work in progress (reply threads)
 
 ## [Demo](http://gokulkrishh.github.io/demo/hacker-news/)
