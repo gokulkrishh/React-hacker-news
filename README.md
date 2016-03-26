@@ -19,7 +19,7 @@ Hacker News site using React.js with minimalistic material design.
 
 ![React-hacker-news](https://github.com/gokulkrishh/React-hacker-news/raw/master/app/images/screenshot.png "React hacker news")
 
-## Installtion
+## Installation
 
 ```
  cd into <downloaded file path>
